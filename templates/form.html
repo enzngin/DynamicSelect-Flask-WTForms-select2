@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Select Category</title>
+    <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-beta.1/dist/css/select2.min.css" rel="stylesheet" />
+
+<!-- jQuery --> <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<!-- Select2 JS -->
+<script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-beta.1/dist/js/select2.min.js"></script>
+</head>
+
+<body>
+        <form url="" method="post" style="text-align: center">
+            {{ form.categories.label() }}
+            <span style="margin-left: 5px;"> {{ form.categories() }} </span>
+            <span style="margin-left: 5px;"> {{ form.submit() }} </span>
+        </form>
+</body>
+
+<script>
+
+$(document).ready(function(){
+    $("#category").select2( { width: '20%'});
+    $("#category").on("select2:open", function() {
+    $(".select2-search__field").attr("placeholder", "Search...");
+});
+    $.get("/return_categories", function(data, status){
+        $.each(data, function(index, value) {
+            $('#category')
+                .append(`<option value="${value[0]}">${value[1]} </option>`);
+});
+    });
+});
+
+</script>
+
+</html>
